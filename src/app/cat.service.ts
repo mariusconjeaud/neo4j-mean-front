@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { environment } from '../environments/environment'
 
 import { Observable, of } from 'rxjs'
 import { catchError } from 'rxjs/operators';
@@ -11,7 +12,7 @@ import { Cat } from './cat'
 })
 export class CatService {
 
-  catsUrl = 'http://localhost:3001/api/cats'
+  catsBaseUrl = `${environment.APIENDPOINT}`
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -19,31 +20,32 @@ export class CatService {
   constructor(private http: HttpClient) {}
 
   getAllCats(): Observable<Cat[]> {
-    return this.http.get<Cat[]>(this.catsUrl)
+    const url = `${this.catsBaseUrl}/cats`
+    return this.http.get<Cat[]>(url)
       .pipe(
         catchError(this.handleError<Cat[]>('getAllCats', []))
       )
   }
 
   getCat(name: string): Observable<Cat> {
-    const url = `${this.catsUrl}/${name}`;
+    const url = `${this.catsBaseUrl}/cat/${name}`;
     return this.http.get<Cat>(url)
   }
 
-  insertCat(cat: Cat): Observable<Cat> {
-    const url = `${this.catsUrl}/`;
+  createCat(cat: Cat): Observable<Cat> {
+    const url = `${this.catsBaseUrl}/cats`;
     return this.http.post<Cat>(url, cat)
   }
 
   updateCat(cat: Cat): Observable<void> {
-    const url = `${this.catsUrl}/${cat.name}`;
+    const url = `${this.catsBaseUrl}/cat/${cat.name}`;
     return this.http.put<void>(
       url, cat
     )
   }
 
   deleteCat(name: string) {
-    const url = `${this.catsUrl}/${name}`;
+    const url = `${this.catsBaseUrl}/cats/${name}`;
     return this.http.delete(url)
   }
 
