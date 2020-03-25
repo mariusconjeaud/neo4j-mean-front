@@ -1,0 +1,11 @@
+{
+  "name": "neo4j-mean-front",
+  "version": "1.0.0",
+  "description": "Express server for serving angular front",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mariusconjeaud",
+  "license": "ISC"
+}
