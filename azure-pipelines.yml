@@ -27,7 +27,7 @@ steps:
   displayName: 'Angular Lint'
 
 - script: ng test --watch=false --codeCoverage=true
-  displayName: 'Tests'
+  displayName: 'Unit Tests'
 
 - task: PublishTestResults@2
   condition: succeededOrFailed()
@@ -35,6 +35,16 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/TESTS-*.xml'
   displayName: 'Publish Test Results'
+
+- script: ng e2e --prod
+  displayName: 'E2E Tests Angular'
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: "**/junit*.xml"
+  displayName: 'Publish E2E Test Results'
 
 - task: PublishCodeCoverageResults@1
   condition: succeededOrFailed()
