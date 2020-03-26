@@ -26,6 +26,13 @@ steps:
 - script: ng test --watch=false
   displayName: 'Tests'
 
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+  displayName: 'Publish Test Results'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'dist'
