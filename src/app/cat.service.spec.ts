@@ -29,7 +29,7 @@ describe('CatService', () => {
 
   describe('#getAllCats', () => {
     it('should return an Observable<Cat[]>', () => {
-      const dummyCats = [,
+      const dummyCats = [
         { name: 'Apollo' },
         { name: 'Muffin' },
         { name: 'Mozart' }
