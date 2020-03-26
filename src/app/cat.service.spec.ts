@@ -1,6 +1,6 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CatService } from './cat.service';
 
 describe('CatService', () => {
@@ -16,7 +16,7 @@ describe('CatService', () => {
     }).compileComponents();
     injector = getTestBed();
     service = injector.inject(CatService);
-    httpMock = injector.get(HttpTestingController);
+    httpMock = injector.inject(HttpTestingController);
   });
 
   afterEach(() => {
@@ -41,7 +41,7 @@ describe('CatService', () => {
       });
 
       const req = httpMock.expectOne(`${service.catsBaseUrl}/cats`);
-      expect(req.request.method).toBe("GET");
+      expect(req.request.method).toBe('GET');
       req.flush(dummyCats);
     });
   });
@@ -55,7 +55,7 @@ describe('CatService', () => {
       });
 
       const req = httpMock.expectOne(`${service.catsBaseUrl}/cat/Apollo`);
-      expect(req.request.method).toBe("GET");
+      expect(req.request.method).toBe('GET');
 
       req.flush(dummyCat);
     });

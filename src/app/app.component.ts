@@ -8,7 +8,7 @@ import { CatService } from './cat.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = "A superb app"
+  title = 'A superb app';
   cats: Cat[];
 
   constructor(private catService: CatService) {}
