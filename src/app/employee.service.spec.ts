@@ -57,10 +57,15 @@ describe('EmployeeService', () => {
 
   describe('#getEmployee', () => {
     it('should return an Employee', () => {
-      const dummyEmployee = { emp_id: 1, name: 'George' };
+      const dummyEmployee = {
+        properties: {
+          emp_id: 1,
+          name: 'George'
+        }
+      };
 
       service.getEmployee(1).subscribe(employee => {
-        expect(employee).toEqual(dummyEmployee);
+        expect(employee).toEqual(dummyEmployee.properties);
       });
 
       const req = httpMock.expectOne(`${service.employeesBaseUrl}/employee/1`);

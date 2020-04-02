@@ -32,7 +32,13 @@ export class EmployeeService {
 
   getEmployee(emp_id: number): Observable<Employee> {
     const url = `${this.employeesBaseUrl}/employee/${emp_id}`;
-    return this.http.get<Employee>(url);
+    return this.http.get<Employee>(url)
+      .pipe(
+        map((data: any) => {
+          return data.properties;
+        }),
+        catchError(this.handleError<Employee[]>('getEmployee', []))
+      );
   }
 
   createEmployee(employee: Employee): Observable<Employee> {
