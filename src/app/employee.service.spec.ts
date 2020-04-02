@@ -31,18 +31,22 @@ describe('EmployeeService', () => {
     it('should return an Observable<Employee[]>', () => {
       const dummyEmployees = [
         {
-          emp_id: 1,
-          name: 'George'
+          properties: {
+            emp_id: 1,
+            name: 'George'
+          }
         },
         {
-          emp_id: 2,
-          name: 'Cindy'
+          properties: {
+            emp_id: 2,
+            name: 'Cindy'
+          }
         }
       ];
 
       service.getAllEmployees().subscribe(employees => {
         expect(employees.length).toBe(2);
-        expect(employees).toEqual(dummyEmployees);
+        expect(employees).toEqual(dummyEmployees.map(el => el.properties));
       });
 
       const req = httpMock.expectOne(`${service.employeesBaseUrl}/employees`);
