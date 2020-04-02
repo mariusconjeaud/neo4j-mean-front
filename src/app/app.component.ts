@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Cat } from './cat';
-import { CatService } from './cat.service';
+import { Employee } from './employee';
+import { EmployeeService } from './employee.service';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +9,16 @@ import { CatService } from './cat.service';
 })
 export class AppComponent implements OnInit {
   title = 'A superb app';
-  cats: Cat[];
+  employees: Employee[];
 
-  constructor(private catService: CatService) {}
+  constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
-    this.getAllCats();
+    this.getAllEmployees();
   }
 
-  getAllCats(): void {
-    this.catService.getAllCats()
-        .subscribe(cats => this.cats = cats);
+  getAllEmployees(): void {
+    this.employeeService.getAllEmployees()
+        .subscribe(employees => this.employees = employees);
   }
  }
