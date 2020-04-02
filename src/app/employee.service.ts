@@ -37,25 +37,38 @@ export class EmployeeService {
         map((data: any) => {
           return data.properties;
         }),
-        catchError(this.handleError<Employee[]>('getEmployee', []))
+        catchError(this.handleError<Employee>('getEmployee', []))
       );
   }
 
   createEmployee(employee: Employee): Observable<Employee> {
     const url = `${this.employeesBaseUrl}/employee`;
-    return this.http.post<Employee>(url, employee);
+    return this.http.post<Employee>(url, employee)
+      .pipe(
+        map((data: any) => {
+          return data.properties;
+        }),
+        catchError(this.handleError<Employee>('createEmployee', []))
+      );
   }
 
   updateEmployee(employee: Employee): Observable<Employee> {
     const url = `${this.employeesBaseUrl}/employee/${employee.emp_id}`;
-    return this.http.put<Employee>(
-      url, employee
-    );
+    return this.http.put<Employee>(url, employee)
+      .pipe(
+        map((data: any) => {
+          return data.properties;
+        }),
+        catchError(this.handleError<Employee>('updateEmployee', []))
+      );
   }
 
   deleteEmployee(emp_id: number) {
     const url = `${this.employeesBaseUrl}/employee/${emp_id}`;
-    return this.http.delete(url);
+    return this.http.delete(url)
+      .pipe(
+        catchError(this.handleError('deleteEmployee', []))
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

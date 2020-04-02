@@ -3,6 +3,13 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { EmployeeService } from './employee.service';
 
+const dummyEmployee = {
+  properties: {
+    emp_id: 1,
+    name: 'George'
+  }
+};
+
 describe('EmployeeService', () => {
   let injector: TestBed;
   let service: EmployeeService;
@@ -30,12 +37,7 @@ describe('EmployeeService', () => {
   describe('#getAllEmployees', () => {
     it('should return an Observable<Employee[]>', () => {
       const dummyEmployees = [
-        {
-          properties: {
-            emp_id: 1,
-            name: 'George'
-          }
-        },
+        dummyEmployee,
         {
           properties: {
             emp_id: 2,
@@ -57,19 +59,38 @@ describe('EmployeeService', () => {
 
   describe('#getEmployee', () => {
     it('should return an Employee', () => {
-      const dummyEmployee = {
-        properties: {
-          emp_id: 1,
-          name: 'George'
-        }
-      };
-
       service.getEmployee(1).subscribe(employee => {
         expect(employee).toEqual(dummyEmployee.properties);
       });
 
       const req = httpMock.expectOne(`${service.employeesBaseUrl}/employee/1`);
       expect(req.request.method).toBe('GET');
+
+      req.flush(dummyEmployee);
+    });
+  });
+
+  describe('#createEmployee', () => {
+    it('should return an Employee', () => {
+      service.createEmployee(dummyEmployee.properties).subscribe(employee => {
+        expect(employee).toEqual(dummyEmployee.properties);
+      });
+
+      const req = httpMock.expectOne(`${service.employeesBaseUrl}/employee`);
+      expect(req.request.method).toBe('POST');
+
+      req.flush(dummyEmployee);
+    });
+  });
+
+  describe('#updateEmployee', () => {
+    it('should return an Employee', () => {
+      service.updateEmployee(dummyEmployee.properties).subscribe(employee => {
+        expect(employee).toEqual(dummyEmployee.properties);
+      });
+
+      const req = httpMock.expectOne(`${service.employeesBaseUrl}/employee/${dummyEmployee.properties.emp_id}`);
+      expect(req.request.method).toBe('PUT');
 
       req.flush(dummyEmployee);
     });
