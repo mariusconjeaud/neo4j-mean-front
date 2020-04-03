@@ -1,7 +1,5 @@
-<h1>{{title}}</h1>
-<h2>My awesome employees :</h2>
-<ul class="employees">
-  <li *ngFor="let employee of employees">
-    <strong>{{employee.emp_id}}: </strong>{{employee.name}}
-  </li>
-</ul>
+<app-navbar></app-navbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

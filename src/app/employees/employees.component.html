@@ -1,0 +1,29 @@
+<h2>My awesome employees :</h2>
+<ul class="employees">
+  <li *ngFor="let employee of employees">
+    <a routerLink="/detail/{{employee.emp_id}}"
+       [title]="employee.name + ' details'">
+      <span class="badge badge-secondary">{{employee.emp_id}}</span> {{employee.name}}
+    </a>
+    <button class="btn btn-danger btn-sm" title="Delete employee" (click)="onDelete(employee)">
+      <fa-icon [icon]="faTrash"></fa-icon>
+    </button>
+  </li>
+</ul>
+
+<h3>Add an employee :</h3>
+<form>
+  <div class="form-group">
+    <label>Employee id:</label>
+    <input class="form-control" #empId />
+    <small class="form-text text-muted">Must be a number</small>
+  </div>
+  <div class="form-group">
+    <label>Employee name:</label>
+      <input class="form-control" #name />
+  </div>
+    <button class="btn btn-success btn-sm"
+            (click)="add(empId.value, name.value); empId.value=''; name.value=''">
+      <fa-icon [icon]="faPlus"></fa-icon> Add
+    </button>
+</form>

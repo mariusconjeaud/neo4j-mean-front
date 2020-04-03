@@ -1,0 +1,18 @@
+<div *ngIf="employee">
+
+  <h2>Details - {{employee.name}}</h2>
+  <div><span>emp_id: </span>{{employee.emp_id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="employee.name" placeholder="name"/>
+    </label>
+  </div>
+  <div>
+    <button class="btn btn-success btn-sm" (click)="save()">
+      <fa-icon [icon]="faSave"></fa-icon> Save
+    </button>
+    <button class="btn btn-primary btn-sm" (click)="goBack()">
+      <fa-icon [icon]="faArrowLeft"></fa-icon> Back
+    </button>
+  </div>
+</div>

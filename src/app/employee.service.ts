@@ -37,7 +37,7 @@ export class EmployeeService {
         map((data: any) => {
           return data.properties;
         }),
-        catchError(this.handleError<Employee>('getEmployee', []))
+        catchError(this.handleError<Employee>(`getEmployee emp_id=${emp_id}`))
       );
   }
 
@@ -46,9 +46,9 @@ export class EmployeeService {
     return this.http.post<Employee>(url, employee)
       .pipe(
         map((data: any) => {
-          return data.properties;
+          return data.e.properties;
         }),
-        catchError(this.handleError<Employee>('createEmployee', []))
+        catchError(this.handleError<Employee>('createEmployee'))
       );
   }
 
@@ -57,17 +57,17 @@ export class EmployeeService {
     return this.http.put<Employee>(url, employee)
       .pipe(
         map((data: any) => {
-          return data.properties;
+          return data.e.properties;
         }),
-        catchError(this.handleError<Employee>('updateEmployee', []))
+        catchError(this.handleError<Employee>(`updateEmployee emp_id=${employee.emp_id}`))
       );
   }
 
   deleteEmployee(emp_id: number) {
     const url = `${this.employeesBaseUrl}/employee/${emp_id}`;
-    return this.http.delete(url)
+    return this.http.delete<Employee>(url)
       .pipe(
-        catchError(this.handleError('deleteEmployee', []))
+        catchError(this.handleError<Employee>(`deleteEmployee emp_id=${emp_id}`))
     );
   }
 
