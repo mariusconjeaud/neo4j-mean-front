@@ -10,6 +10,15 @@ const dummyEmployee = {
   }
 };
 
+const nestedDummyEmployee = {
+  e: {
+    properties: {
+      emp_id: 1,
+      name: 'George'
+    }
+  }
+}
+
 describe('EmployeeService', () => {
   let injector: TestBed;
   let service: EmployeeService;
@@ -72,27 +81,27 @@ describe('EmployeeService', () => {
 
   describe('#createEmployee', () => {
     it('should return an Employee', () => {
-      service.createEmployee(dummyEmployee.properties).subscribe(employee => {
-        expect(employee).toEqual(dummyEmployee.properties);
+      service.createEmployee(nestedDummyEmployee.e.properties).subscribe(employee => {
+        expect(employee).toEqual(nestedDummyEmployee.e.properties);
       });
 
       const req = httpMock.expectOne(`${service.employeesBaseUrl}/employee`);
       expect(req.request.method).toBe('POST');
 
-      req.flush(dummyEmployee);
+      req.flush(nestedDummyEmployee);
     });
   });
 
   describe('#updateEmployee', () => {
     it('should return an Employee', () => {
-      service.updateEmployee(dummyEmployee.properties).subscribe(employee => {
-        expect(employee).toEqual(dummyEmployee.properties);
+      service.updateEmployee(nestedDummyEmployee.e.properties).subscribe(employee => {
+        expect(employee).toEqual(nestedDummyEmployee.e.properties);
       });
 
-      const req = httpMock.expectOne(`${service.employeesBaseUrl}/employee/${dummyEmployee.properties.emp_id}`);
+      const req = httpMock.expectOne(`${service.employeesBaseUrl}/employee/${nestedDummyEmployee.e.properties.emp_id}`);
       expect(req.request.method).toBe('PUT');
 
-      req.flush(dummyEmployee);
+      req.flush(nestedDummyEmployee);
     });
   });
 });
